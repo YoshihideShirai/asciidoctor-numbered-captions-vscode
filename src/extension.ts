@@ -5,88 +5,27 @@ const WEBVIEW_TYPE = 'asciidoctorNumberedCaptions.preview';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const asciidoctor = require('@asciidoctor/core')();
-
-type AnyNode = {
-  getContext?: () => string;
-  getTitle?: () => string;
-  getLevel?: () => number;
-  getBlocks?: () => AnyNode[];
-  getAttribute?: (name: string) => unknown;
-  setAttribute?: (name: string, value: string) => void;
-};
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const numberedCaptions = require('asciidoctor-numbered-captions');
 
 function registerNumberedCaptions(registry: any, options: { defaultNumbering: string; chapterLevel: number }): void {
-  registry.treeProcessor(function (this: any) {
-    this.process(function (doc: AnyNode) {
-      const mode = String(doc.getAttribute?.('numbered-captions-numbering') ?? options.defaultNumbering ?? 'standard');
-      if (mode !== 'chaptered') {
-        return doc;
-      }
-
-      const rawLevel = Number(doc.getAttribute?.('numbered-captions-chapter-level') ?? options.chapterLevel ?? 1);
-      const chapterLevel = Number.isInteger(rawLevel) && rawLevel >= 1 ? rawLevel : 1;
-
-      const labels = {
-        image: String(doc.getAttribute?.('figure-caption') ?? 'Figure'),
-        table: String(doc.getAttribute?.('table-caption') ?? 'Table'),
-        stem: String(doc.getAttribute?.('equation-caption') ?? doc.getAttribute?.('stem-caption') ?? 'Equation')
-      };
-
-      const counters = new Map<string, number>();
-      let chapterCounter = 0;
-
-      const nextCaptionNumber = (chapter: string, context: string): number => {
-        const key = `${chapter}:${context}`;
-        const current = counters.get(key) ?? 0;
-        const next = current + 1;
-        counters.set(key, next);
-        return next;
-      };
-
-      const applyCaption = (block: AnyNode, chapter: string): void => {
-        const context = block.getContext?.();
-        if (!context || !['image', 'table', 'stem'].includes(context)) {
-          return;
-        }
-
-        const title = block.getTitle?.();
-        if (!title) {
-          return;
-        }
-
-        const seq = nextCaptionNumber(chapter, context);
-        const label = (labels as Record<string, string>)[context] ?? context;
-        block.setAttribute?.('caption', `${label} ${chapter}-${seq}. `);
-      };
-
-      const walkBlocks = (blocks: AnyNode[], currentChapter: string): void => {
-        for (const block of blocks) {
-          if (block.getContext?.() === 'section') {
-            const level = block.getLevel?.() ?? 1;
-            let childChapter = currentChapter;
-
-            if (level === chapterLevel) {
-              chapterCounter += 1;
-              childChapter = String(chapterCounter);
-            }
-
-            walkBlocks(block.getBlocks?.() ?? [], childChapter);
-            continue;
-          }
-
-          applyCaption(block, currentChapter);
-
-          const nestedBlocks = block.getBlocks?.() ?? [];
-          if (nestedBlocks.length > 0) {
-            walkBlocks(nestedBlocks, currentChapter);
-          }
-        }
-      };
-
-      walkBlocks(doc.getBlocks?.() ?? [], '1');
-      return doc;
+  if (typeof numberedCaptions?.register === 'function') {
+    numberedCaptions.register(registry, {
+      defaultNumbering: options.defaultNumbering,
+      chapterLevel: options.chapterLevel
     });
-  });
+    return;
+  }
+
+  if (typeof numberedCaptions === 'function') {
+    numberedCaptions(registry, {
+      defaultNumbering: options.defaultNumbering,
+      chapterLevel: options.chapterLevel
+    });
+    return;
+  }
+
+  throw new Error('Failed to load asciidoctor-numbered-captions: unsupported module shape.');
 }
 
 function buildHtmlBody(rawHtml: string): string {
@@ -122,7 +61,14 @@ export function activate(context: vscode.ExtensionContext): void {
     const chapterLevel = cfg.get<number>('chapterLevel', 1);
 
     const registry = asciidoctor.Extensions.create();
-    registerNumberedCaptions(registry, { defaultNumbering, chapterLevel });
+
+    try {
+      registerNumberedCaptions(registry, { defaultNumbering, chapterLevel });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      void vscode.window.showErrorMessage(`拡張の初期化に失敗しました: ${message}`);
+      return;
+    }
 
     let converted: string;
     try {

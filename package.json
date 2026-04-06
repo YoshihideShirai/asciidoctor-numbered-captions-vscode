@@ -26,7 +26,10 @@
       "properties": {
         "asciidoctorNumberedCaptions.defaultNumbering": {
           "type": "string",
-          "enum": ["chaptered", "standard"],
+          "enum": [
+            "chaptered",
+            "standard"
+          ],
           "default": "chaptered",
           "description": "Default numbering mode for the internal preview."
         },
@@ -44,7 +47,8 @@
     "check": "tsc -p . --noEmit"
   },
   "dependencies": {
-    "@asciidoctor/core": "^3.0.4"
+    "@asciidoctor/core": "^3.0.4",
+    "asciidoctor-numbered-captions": "github:YoshihideShirai/asciidoctor-numbered-captions"
   },
   "devDependencies": {
     "@types/node": "^20.16.5",

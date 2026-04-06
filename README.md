@@ -1,7 +1,9 @@
 # asciidoctor-numbered-captions-vscode (MVP)
 
-VS Code 拡張機能のMVPです。**ワークスペースに `.asciidoctor/lib/*.js` を生成せず**、拡張機能内の処理で
-章番号付きキャプション（Figure/Table/Equation）を適用した AsciiDoc プレビューを表示します。
+VS Code 拡張機能のMVPです。**ワークスペースに `.asciidoctor/lib/*.js` を生成せず**、
+拡張機能内で `@asciidoctor/core` と
+[`YoshihideShirai/asciidoctor-numbered-captions`](https://github.com/YoshihideShirai/asciidoctor-numbered-captions)
+を直接使って、章番号付きキャプション（Figure/Table/Equation）を適用した AsciiDoc プレビューを表示します。
 
 ## 使い方
 
