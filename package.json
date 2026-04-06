@@ -1,7 +1,7 @@
 {
   "name": "asciidoctor-numbered-captions-vscode",
   "displayName": "Asciidoctor Numbered Captions Helper",
-  "description": "MVP helper to enable asciidoctor-numbered-captions in VS Code Asciidoctor preview.",
+  "description": "MVP helper to preview AsciiDoc with chapter-numbered captions without workspace file generation.",
   "version": "0.0.1",
   "publisher": "yoshihideshirai",
   "engines": {
@@ -11,14 +11,14 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:asciidoctorNumberedCaptions.setupMvp"
+    "onCommand:asciidoctorNumberedCaptions.showPreview"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "asciidoctorNumberedCaptions.setupMvp",
-        "title": "Asciidoctor Numbered Captions: Setup MVP"
+        "command": "asciidoctorNumberedCaptions.showPreview",
+        "title": "Asciidoctor Numbered Captions: Open Internal Preview"
       }
     ],
     "configuration": {
@@ -28,13 +28,13 @@
           "type": "string",
           "enum": ["chaptered", "standard"],
           "default": "chaptered",
-          "description": "Default numbering mode passed to asciidoctor-numbered-captions."
+          "description": "Default numbering mode for the internal preview."
         },
         "asciidoctorNumberedCaptions.chapterLevel": {
           "type": "number",
           "default": 1,
           "minimum": 1,
-          "description": "Chapter level passed to asciidoctor-numbered-captions."
+          "description": "Chapter level for caption numbering in the internal preview."
         }
       }
     }
@@ -42,6 +42,9 @@
   "scripts": {
     "build": "tsc -p .",
     "check": "tsc -p . --noEmit"
+  },
+  "dependencies": {
+    "@asciidoctor/core": "^3.0.4"
   },
   "devDependencies": {
     "@types/node": "^20.16.5",
