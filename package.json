@@ -1,0 +1,51 @@
+{
+  "name": "asciidoctor-numbered-captions-vscode",
+  "displayName": "Asciidoctor Numbered Captions Helper",
+  "description": "MVP helper to enable asciidoctor-numbered-captions in VS Code Asciidoctor preview.",
+  "version": "0.0.1",
+  "publisher": "yoshihideshirai",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:asciidoctorNumberedCaptions.setupMvp"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "asciidoctorNumberedCaptions.setupMvp",
+        "title": "Asciidoctor Numbered Captions: Setup MVP"
+      }
+    ],
+    "configuration": {
+      "title": "Asciidoctor Numbered Captions",
+      "properties": {
+        "asciidoctorNumberedCaptions.defaultNumbering": {
+          "type": "string",
+          "enum": ["chaptered", "standard"],
+          "default": "chaptered",
+          "description": "Default numbering mode passed to asciidoctor-numbered-captions."
+        },
+        "asciidoctorNumberedCaptions.chapterLevel": {
+          "type": "number",
+          "default": 1,
+          "minimum": 1,
+          "description": "Chapter level passed to asciidoctor-numbered-captions."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "check": "tsc -p . --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.5",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.6.2"
+  }
+}
