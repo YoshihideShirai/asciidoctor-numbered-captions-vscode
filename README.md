@@ -7,6 +7,10 @@ VS Code 拡張機能のMVPです。**ワークスペースに `.asciidoctor/lib/
 
 ## 使い方
 
+`asciidoctor-vscode` がインストールされている場合、通常の AsciiDoc プレビューやエクスポートで自動的に番号付きキャプション拡張が登録されます。
+
+単体確認用の内部プレビューも利用できます。
+
 1. AsciiDoc ファイルを開く
 2. コマンドパレットで `Asciidoctor Numbered Captions: Open Internal Preview` を実行
 3. 右ペインに番号付きキャプション適用済みHTMLプレビューが開く

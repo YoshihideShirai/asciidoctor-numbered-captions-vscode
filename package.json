@@ -11,6 +11,7 @@
     "Other"
   ],
   "activationEvents": [
+    "onLanguage:asciidoc",
     "onCommand:asciidoctorNumberedCaptions.showPreview"
   ],
   "main": "./dist/extension.js",
