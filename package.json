@@ -19,7 +19,7 @@
     "commands": [
       {
         "command": "asciidoctorNumberedCaptions.showPreview",
-        "title": "Asciidoctor Numbered Captions: Open Internal Preview"
+        "title": "Asciidoctor Numbered Captions: Open Preview"
       }
     ],
     "configuration": {
@@ -32,13 +32,13 @@
             "standard"
           ],
           "default": "chaptered",
-          "description": "Default numbering mode for the internal preview."
+          "description": "Default numbering mode for asciidoctor-vscode preview and export."
         },
         "asciidoctorNumberedCaptions.chapterLevel": {
           "type": "number",
           "default": 1,
           "minimum": 1,
-          "description": "Chapter level for caption numbering in the internal preview."
+          "description": "Chapter level for caption numbering in asciidoctor-vscode preview and export."
         }
       }
     }
@@ -48,7 +48,6 @@
     "check": "tsc -p . --noEmit"
   },
   "dependencies": {
-    "@asciidoctor/core": "^3.0.4",
     "asciidoctor-numbered-captions": "github:YoshihideShirai/asciidoctor-numbered-captions"
   },
   "devDependencies": {

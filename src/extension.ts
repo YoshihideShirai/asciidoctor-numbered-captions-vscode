@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 
 const COMMAND_PREVIEW = 'asciidoctorNumberedCaptions.showPreview';
-const WEBVIEW_TYPE = 'asciidoctorNumberedCaptions.preview';
 const ASCIIDOCTOR_VSCODE_EXTENSION_ID = 'asciidoctor.asciidoctor-vscode';
+const ASCIIDOCTOR_PREVIEW_TO_SIDE_COMMAND = 'asciidoc.showPreviewToSide';
 
 export interface NumberedCaptionsOptions {
   defaultNumbering: string;
@@ -18,9 +18,9 @@ interface AsciidoctorVscodeApi {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const asciidoctor = require('@asciidoctor/core')();
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const numberedCaptions = require('asciidoctor-numbered-captions');
+let registration: vscode.Disposable | undefined;
+let registrationPromise: Promise<void> | undefined;
 
 function getNumberedCaptionsOptions(documentUri?: vscode.Uri): NumberedCaptionsOptions {
   const cfg = vscode.workspace.getConfiguration('asciidoctorNumberedCaptions', documentUri);
@@ -51,6 +51,17 @@ function registerNumberedCaptions(registry: any, options: NumberedCaptionsOption
 }
 
 async function registerWithAsciidoctorVscode(context: vscode.ExtensionContext): Promise<void> {
+  if (registration !== undefined) {
+    return;
+  }
+  if (registrationPromise !== undefined) {
+    return registrationPromise;
+  }
+  registrationPromise = doRegisterWithAsciidoctorVscode(context);
+  return registrationPromise;
+}
+
+async function doRegisterWithAsciidoctorVscode(context: vscode.ExtensionContext): Promise<void> {
   const asciidoctorVscode = vscode.extensions.getExtension<AsciidoctorVscodeApi>(ASCIIDOCTOR_VSCODE_EXTENSION_ID);
   if (asciidoctorVscode === undefined) {
     return;
@@ -61,85 +72,32 @@ async function registerWithAsciidoctorVscode(context: vscode.ExtensionContext): 
     if (typeof api?.registerAsciidoctorExtension !== 'function') {
       return;
     }
-    context.subscriptions.push(api.registerAsciidoctorExtension({
+    registration = api.registerAsciidoctorExtension({
       register(registry: any, documentUri?: vscode.Uri): void {
         registerNumberedCaptions(registry, getNumberedCaptionsOptions(documentUri));
       }
-    }));
+    });
+    context.subscriptions.push(registration);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     void vscode.window.showWarningMessage(`Failed to initialize asciidoctor-vscode integration: ${message}`);
+  } finally {
+    registrationPromise = undefined;
   }
-}
-
-function buildHtmlBody(rawHtml: string): string {
-  return `<!doctype html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Numbered Captions Preview</title>
-<style>
-body { padding: 1rem 1.5rem; max-width: 980px; margin: 0 auto; font-family: var(--vscode-font-family); }
-pre, code { font-family: var(--vscode-editor-font-family); }
-img { max-width: 100%; }
-</style>
-</head>
-<body>
-${rawHtml}
-</body>
-</html>`;
 }
 
 export function activate(context: vscode.ExtensionContext): void {
   void registerWithAsciidoctorVscode(context);
 
   context.subscriptions.push(vscode.commands.registerCommand(COMMAND_PREVIEW, async () => {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) {
-      void vscode.window.showErrorMessage('No active editor.');
+    const asciidoctorVscode = vscode.extensions.getExtension(ASCIIDOCTOR_VSCODE_EXTENSION_ID);
+    if (asciidoctorVscode === undefined) {
+      void vscode.window.showErrorMessage('asciidoctor-vscode is not installed.');
       return;
     }
 
-    const source = editor.document.getText();
-    const { defaultNumbering, chapterLevel } = getNumberedCaptionsOptions(editor.document.uri);
-
-    const registry = asciidoctor.Extensions.create();
-
-    try {
-      registerNumberedCaptions(registry, { defaultNumbering, chapterLevel });
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
-      void vscode.window.showErrorMessage(`Failed to initialize extension: ${message}`);
-      return;
-    }
-
-    let converted: string;
-    try {
-      converted = asciidoctor.convert(source, {
-        safe: 'unsafe',
-        extension_registry: registry,
-        attributes: {
-          sectnums: '',
-          stem: 'latexmath',
-          'numbered-captions-numbering': defaultNumbering,
-          'numbered-captions-chapter-level': String(chapterLevel)
-        }
-      }) as string;
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
-      void vscode.window.showErrorMessage(`Asciidoctor conversion failed: ${message}`);
-      return;
-    }
-
-    const panel = vscode.window.createWebviewPanel(
-      WEBVIEW_TYPE,
-      `Numbered Captions Preview: ${editor.document.fileName.split(/[\\/]/).pop() ?? 'document'}`,
-      vscode.ViewColumn.Beside,
-      { enableScripts: true }
-    );
-
-    panel.webview.html = buildHtmlBody(converted);
+    await registerWithAsciidoctorVscode(context);
+    await vscode.commands.executeCommand(ASCIIDOCTOR_PREVIEW_TO_SIDE_COMMAND);
   }));
 }
 
