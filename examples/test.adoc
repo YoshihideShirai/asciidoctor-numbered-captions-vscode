@@ -1,0 +1,39 @@
+= Default preset demo
+
+== Chapter A
+
+.Sample figure in chapter A
+image::https://dummyimage.com/420x120/f3f4f6/111827.png&text=Figure+A[Demo image,420,120]
+
+.Sample table in chapter A
+|===
+|Key |Value
+
+|alpha |1
+|beta |2
+|===
+
+.Sample equation in chapter A
+[stem]
+++++
+a^2 + b^2 = c^2
+++++
+
+== Chapter B
+
+.Sample figure in chapter B
+image::https://dummyimage.com/420x120/e0f2fe/111827.png&text=Figure+B[Demo image,420,120]
+
+.Sample table in chapter B
+|===
+|Key |Value
+
+|gamma |3
+|delta |4
+|===
+
+.Sample equation in chapter B
+[stem]
+++++
+\int_0^1 x^2 dx = 1/3
+++++

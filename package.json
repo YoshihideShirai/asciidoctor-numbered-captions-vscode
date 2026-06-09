@@ -1,0 +1,58 @@
+{
+  "name": "asciidoctor-numbered-captions-vscode",
+  "displayName": "Asciidoctor Numbered Captions Helper",
+  "description": "MVP helper to preview AsciiDoc with chapter-numbered captions without workspace file generation.",
+  "version": "0.0.1",
+  "publisher": "yoshihideshirai",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:asciidoc",
+    "onCommand:asciidoctorNumberedCaptions.showPreview"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "asciidoctorNumberedCaptions.showPreview",
+        "title": "Asciidoctor Numbered Captions: Open Preview"
+      }
+    ],
+    "configuration": {
+      "title": "Asciidoctor Numbered Captions",
+      "properties": {
+        "asciidoctorNumberedCaptions.defaultNumbering": {
+          "type": "string",
+          "enum": [
+            "chaptered",
+            "standard"
+          ],
+          "default": "chaptered",
+          "description": "Default numbering mode for asciidoctor-vscode preview and export."
+        },
+        "asciidoctorNumberedCaptions.chapterLevel": {
+          "type": "number",
+          "default": 1,
+          "minimum": 1,
+          "description": "Chapter level for caption numbering in asciidoctor-vscode preview and export."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "check": "tsc -p . --noEmit"
+  },
+  "dependencies": {
+    "asciidoctor-numbered-captions": "github:YoshihideShirai/asciidoctor-numbered-captions"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.5",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.6.2"
+  }
+}
