@@ -68,7 +68,7 @@ async function registerWithAsciidoctorVscode(context: vscode.ExtensionContext): 
     }));
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    void vscode.window.showWarningMessage(`asciidoctor-vscode 連携の初期化に失敗しました: ${message}`);
+    void vscode.window.showWarningMessage(`Failed to initialize asciidoctor-vscode integration: ${message}`);
   }
 }
 
@@ -97,7 +97,7 @@ export function activate(context: vscode.ExtensionContext): void {
   context.subscriptions.push(vscode.commands.registerCommand(COMMAND_PREVIEW, async () => {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
-      void vscode.window.showErrorMessage('アクティブなエディタがありません。');
+      void vscode.window.showErrorMessage('No active editor.');
       return;
     }
 
@@ -110,7 +110,7 @@ export function activate(context: vscode.ExtensionContext): void {
       registerNumberedCaptions(registry, { defaultNumbering, chapterLevel });
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
-      void vscode.window.showErrorMessage(`拡張の初期化に失敗しました: ${message}`);
+      void vscode.window.showErrorMessage(`Failed to initialize extension: ${message}`);
       return;
     }
 
@@ -128,7 +128,7 @@ export function activate(context: vscode.ExtensionContext): void {
       }) as string;
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
-      void vscode.window.showErrorMessage(`Asciidoctor 変換に失敗しました: ${message}`);
+      void vscode.window.showErrorMessage(`Asciidoctor conversion failed: ${message}`);
       return;
     }
 

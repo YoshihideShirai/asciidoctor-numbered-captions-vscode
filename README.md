@@ -1,26 +1,28 @@
 # asciidoctor-numbered-captions-vscode (MVP)
 
-VS Code 拡張機能のMVPです。**ワークスペースに `.asciidoctor/lib/*.js` を生成せず**、
-拡張機能内で `@asciidoctor/core` と
+This is an MVP VS Code extension for numbered Asciidoctor captions. It uses
+`@asciidoctor/core` and
 [`YoshihideShirai/asciidoctor-numbered-captions`](https://github.com/YoshihideShirai/asciidoctor-numbered-captions)
-を直接使って、章番号付きキャプション（Figure/Table/Equation）を適用した AsciiDoc プレビューを表示します。
+directly from the extension, without generating `.asciidoctor/lib/*.js` files in
+the workspace.
 
-## 使い方
+## Usage
 
-`asciidoctor-vscode` がインストールされている場合、通常の AsciiDoc プレビューやエクスポートで自動的に番号付きキャプション拡張が登録されます。
+When `asciidoctor-vscode` is installed, this extension automatically registers
+the numbered captions extension for normal AsciiDoc preview and export.
 
-単体確認用の内部プレビューも利用できます。
+An internal preview command is also available for standalone verification.
 
-1. AsciiDoc ファイルを開く
-2. コマンドパレットで `Asciidoctor Numbered Captions: Open Internal Preview` を実行
-3. 右ペインに番号付きキャプション適用済みHTMLプレビューが開く
+1. Open an AsciiDoc file.
+2. Run `Asciidoctor Numbered Captions: Open Internal Preview` from the command palette.
+3. A numbered-captions HTML preview opens in the side pane.
 
-## 設定
+## Settings
 
 - `asciidoctorNumberedCaptions.defaultNumbering`: `chaptered` / `standard`
-- `asciidoctorNumberedCaptions.chapterLevel`: 章として扱うセクションレベル
+- `asciidoctorNumberedCaptions.chapterLevel`: Section level to treat as a chapter.
 
-## 開発
+## Development
 
 ```bash
 npm install
