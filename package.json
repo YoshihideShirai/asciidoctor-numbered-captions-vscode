@@ -16,6 +16,7 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "asciidoc.asciidoctorExtensions": true,
     "commands": [
       {
         "command": "asciidoctorNumberedCaptions.showPreview",
