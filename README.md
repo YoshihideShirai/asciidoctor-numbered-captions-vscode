@@ -38,6 +38,8 @@ If `asciidoctor-vscode` is not installed, the preview command shows an error mes
 
 Install `Asciidoctor Numbered Captions Helper` from the VS Code Marketplace.
 
+Alternatively, download the `.vsix` package from the GitHub Releases page and install it with `Extensions: Install from VSIX...` in VS Code.
+
 After installation, open an AsciiDoc file. The extension activates automatically and registers the numbered captions extension through the Asciidoctor extension hook provided by `asciidoctor-vscode`.
 
 ## Usage

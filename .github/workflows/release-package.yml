@@ -7,7 +7,7 @@ on:
       - 'v*'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   package:
@@ -36,7 +36,8 @@ jobs:
       - name: Create VSIX package
         run: |
           mkdir -p release
-          npx --yes @vscode/vsce package --out release/asciidoctor-numbered-captions-vscode.vsix
+          VERSION=$(node -p "require('./package.json').version")
+          npx --yes @vscode/vsce package --out "release/asciidoctor-numbered-captions-vscode-${VERSION}.vsix"
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
@@ -44,3 +45,10 @@ jobs:
           name: vscode-extension-vsix
           path: release/*.vsix
           if-no-files-found: error
+
+      - name: Upload VSIX to GitHub Release
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/*.vsix
+          fail_on_unmatched_files: true
