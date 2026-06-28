@@ -2,6 +2,8 @@
 
 [日本語](README.ja.md)
 
+[![VS Code Marketplace downloads](https://img.shields.io/visual-studio-marketplace/d/YoshihideShirai.asciidoctor-numbered-captions-vscode?label=downloads&logo=visualstudiocode)](https://marketplace.visualstudio.com/items?itemName=YoshihideShirai.asciidoctor-numbered-captions-vscode)
+
 Asciidoctor Numbered Captions Helper is a VS Code extension that automatically applies numbered captions to figures, tables, listings, and other captioned blocks in Asciidoctor preview and export workflows. It integrates with `asciidoctor-vscode` and registers [`asciidoctor-numbered-captions`](https://github.com/YoshihideShirai/asciidoctor-numbered-captions) without generating helper files such as `.asciidoctor/lib/*.js` in your workspace.
 
 ## Features

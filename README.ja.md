@@ -2,6 +2,8 @@
 
 [English](README.md)
 
+[![VS Code Marketplace downloads](https://img.shields.io/visual-studio-marketplace/d/YoshihideShirai.asciidoctor-numbered-captions-vscode?label=downloads&logo=visualstudiocode)](https://marketplace.visualstudio.com/items?itemName=YoshihideShirai.asciidoctor-numbered-captions-vscode)
+
 Asciidoctor Numbered Captions Helper は、Asciidoctor のプレビューとエクスポートで、図・表・リストなどのキャプション番号を自動付番する VS Code 拡張です。`asciidoctor-vscode` と連携し、ワークスペース内に `.asciidoctor/lib/*.js` のような補助ファイルを生成せずに [`asciidoctor-numbered-captions`](https://github.com/YoshihideShirai/asciidoctor-numbered-captions) を登録します。
 
 ## 機能
