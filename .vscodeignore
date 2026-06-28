@@ -1,0 +1,10 @@
+.gitignore
+.gitkeep
+.vscodeignore
+src/**
+examples/**
+tsconfig.json
+package-lock.json
+node_modules/@types/**
+node_modules/typescript/**
+*.vsix
