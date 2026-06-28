@@ -2,7 +2,7 @@
   "name": "asciidoctor-numbered-captions-vscode",
   "displayName": "Asciidoctor Numbered Captions Helper",
   "description": "MVP helper to preview AsciiDoc with chapter-numbered captions without workspace file generation.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "yoshihideshirai",
   "icon": "assets/icon.png",
   "engines": {
