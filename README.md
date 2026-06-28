@@ -67,6 +67,28 @@ You can configure the extension from VS Code settings.
 }
 ```
 
+### Example AsciiDoc header attributes
+
+To choose the numbering mode per document, add the `numbered-captions-numbering` attribute to the AsciiDoc document header.
+
+```adoc
+= Sample Document
+:numbered-captions-numbering: chaptered
+:numbered-captions-chapter-level: 1
+:figure-caption: Figure
+:table-caption: Table
+:equation-caption: Equation
+
+== Introduction
+
+.Architecture diagram
+image::architecture.png[]
+```
+
+Set `numbered-captions-numbering` to either `chaptered` or `standard`. This document attribute overrides `asciidoctorNumberedCaptions.defaultNumbering` per document.
+
+`numbered-captions-chapter-level` is the section level treated as the chapter level. If `asciidoctorNumberedCaptions.chapterLevel` is configured in VS Code, the VS Code setting takes precedence.
+
 ## Numbering modes
 
 ### `chaptered`
