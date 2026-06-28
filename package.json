@@ -3,6 +3,7 @@
   "displayName": "Asciidoctor Numbered Captions Helper",
   "description": "MVP helper to preview AsciiDoc with chapter-numbered captions without workspace file generation.",
   "version": "1.0.0",
+  "license": "MIT",
   "publisher": "yoshihideshirai",
   "icon": "assets/icon.png",
   "engines": {
