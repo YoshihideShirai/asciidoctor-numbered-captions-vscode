@@ -5,6 +5,10 @@
   "version": "1.0.0",
   "license": "MIT",
   "publisher": "yoshihideshirai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YoshihideShirai/asciidoctor-numbered-captions-vscode.git"
+  },
   "icon": "assets/icon.png",
   "engines": {
     "vscode": "^1.90.0"
