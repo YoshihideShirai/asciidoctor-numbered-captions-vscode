@@ -55,14 +55,14 @@ You can configure the extension from VS Code settings.
 
 | Setting | Default | Description |
 | --- | --- | --- |
-| `asciidoctorNumberedCaptions.defaultNumbering` | `chaptered` | The default numbering mode. Use `chaptered` or `standard`. |
+| `asciidoctorNumberedCaptions.defaultNumbering` | `standard` | The default numbering mode. Use `chaptered` or `standard`. |
 | `asciidoctorNumberedCaptions.chapterLevel` | `1` | The section level treated as the chapter level when using `chaptered` numbering. |
 
 ### Example `settings.json`
 
 ```json
 {
-  "asciidoctorNumberedCaptions.defaultNumbering": "chaptered",
+  "asciidoctorNumberedCaptions.defaultNumbering": "standard",
   "asciidoctorNumberedCaptions.chapterLevel": 1
 }
 ```
