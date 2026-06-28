@@ -55,14 +55,14 @@ VS Code の設定から拡張の動作を変更できます。
 
 | 設定 | 既定値 | 説明 |
 | --- | --- | --- |
-| `asciidoctorNumberedCaptions.defaultNumbering` | `chaptered` | 既定の番号付けモードです。`chaptered` または `standard` を指定します。 |
+| `asciidoctorNumberedCaptions.defaultNumbering` | `standard` | 既定の番号付けモードです。`chaptered` または `standard` を指定します。 |
 | `asciidoctorNumberedCaptions.chapterLevel` | `1` | `chaptered` 形式で章として扱うセクションレベルです。 |
 
 ### `settings.json` の例
 
 ```json
 {
-  "asciidoctorNumberedCaptions.defaultNumbering": "chaptered",
+  "asciidoctorNumberedCaptions.defaultNumbering": "standard",
   "asciidoctorNumberedCaptions.chapterLevel": 1
 }
 ```

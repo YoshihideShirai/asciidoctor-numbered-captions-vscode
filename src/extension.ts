@@ -26,7 +26,7 @@ const numberedCaptions = require('asciidoctor-numbered-captions');
 function getNumberedCaptionsOptions(documentUri?: vscode.Uri): NumberedCaptionsOptions {
   const cfg = vscode.workspace.getConfiguration('asciidoctorNumberedCaptions', documentUri);
   return {
-    defaultNumbering: cfg.get<string>('defaultNumbering', 'chaptered'),
+    defaultNumbering: cfg.get<string>('defaultNumbering', 'standard'),
     chapterLevel: cfg.get<number>('chapterLevel', 1)
   };
 }

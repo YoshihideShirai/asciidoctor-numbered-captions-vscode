@@ -32,7 +32,7 @@
             "chaptered",
             "standard"
           ],
-          "default": "chaptered",
+          "default": "standard",
           "description": "Default numbering mode for asciidoctor-vscode preview and export."
         },
         "asciidoctorNumberedCaptions.chapterLevel": {
