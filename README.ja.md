@@ -67,6 +67,28 @@ VS Code の設定から拡張の動作を変更できます。
 }
 ```
 
+### AsciiDoc ヘッダーで指定する例
+
+文書ごとに番号付けモードを指定したい場合は、AsciiDoc ファイルのヘッダーに `numbered-captions-numbering` 属性を追加します。
+
+```adoc
+= サンプル文書
+:numbered-captions-numbering: chaptered
+:numbered-captions-chapter-level: 1
+:figure-caption: 図
+:table-caption: 表
+:equation-caption: 式
+
+== はじめに
+
+.構成図
+image::architecture.png[]
+```
+
+`numbered-captions-numbering` には `chaptered` または `standard` を指定できます。この属性は文書ごとに `asciidoctorNumberedCaptions.defaultNumbering` を上書きします。
+
+`numbered-captions-chapter-level` は章として扱うセクションレベルです。ただし、VS Code の `asciidoctorNumberedCaptions.chapterLevel` を設定している場合は VS Code の設定が優先されます。
+
 ## 番号付けモード
 
 ### `chaptered`
