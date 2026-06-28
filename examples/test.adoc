@@ -1,4 +1,5 @@
 = Default preset demo
+:numbered-captions-numbering: chaptered
 
 == Chapter A
 
